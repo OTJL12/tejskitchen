@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recipe HTML Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff8f2;
+      margin: 0;
+      padding: 2rem;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #ff7043;
+    }
+    label {
+      display: block;
+      margin-top: 1.5rem;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 0.7rem 1.5rem;
+      background: #ff7043;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      display: block;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Recipe HTML Generator</h1>
+  <label for="title">Recipe Title:</label>
+  <input type="text" id="title" placeholder="e.g. Garlic Butter Pasta" required>
+
+  <label for="ingredients">Ingredients (one per line):</label>
+  <textarea id="ingredients" rows="6" placeholder="e.g. 2 cloves garlic&#10;100g butter&#10;200g pasta" required></textarea>
+
+  <label for="steps">Steps (one per line):</label>
+  <textarea id="steps" rows="8" placeholder="e.g. Boil pasta&#10;Melt butter&#10;Mix with garlic and pasta" required></textarea>
+
+  <button onclick="generateRecipe()">Download Recipe HTML</button>
+
+  <script>
+    function generateRecipe() {
+      const title = document.getElementById("title").value.trim();
+      const ingredients = document.getElementById("ingredients").value.trim().split("\n");
+      const steps = document.getElementById("steps").value.trim().split("\n");
+
+      if (!title || ingredients.length === 0 || steps.length === 0) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${title}</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff8f2;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+    }
+    header {
+      background: #ff7043;
+      padding: 1.5rem;
+      text-align: center;
+      color: white;
+    }
+    main {
+      max-width: 800px;
+      margin: auto;
+    }
+    h2 {
+      margin-top: 2rem;
+    }
+    ul, ol {
+      padding-left: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>${title}</h1>
+  </header>
+  <main>
+    <h2>Ingredients</h2>
+    <ul>
+      ${ingredients.map(ing => `<li>${ing}</li>`).join("\n      ")}
+    </ul>
+
+    <h2>Steps</h2>
+    <ol>
+      ${steps.map(step => `<li>${step}</li>`).join("\n      ")}
+    </ol>
+  </main>
+</body>
+</html>`;
+
+      const blob = new Blob([htmlContent], { type: "text/html" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${title.toLowerCase().replace(/\s+/g, "_")}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+</body>
+</html>
