@@ -82,6 +82,7 @@ function titleCase(str) {
 
   const main = document.getElementsByName("main")[0];
   for (recipe in recipes) {
+    console.log(recipe);
     const div = document.createElement("div");
     div.setAttribute("class", "recipe-card");
     const h3 = document.createElement("h3");
