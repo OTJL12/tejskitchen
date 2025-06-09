@@ -60,7 +60,7 @@
 </main>
 <script>
     let recipes = []
-    fetch("https://api.github.com/repos/<user>/<repo>/contents/recipes")
+    fetch("https://api.github.com/repos/Otjl12/tejskitchen/contents/recipes")
   .then(res => res.json())
   .then(files => {
     files.forEach(file => {
@@ -70,7 +70,7 @@
       }
     });
   });
-  cosole.log(recipes);
+  console.log(recipes);
 
 </script>
 </body>
