@@ -58,5 +58,20 @@
         <p>A simple yet delicious pasta recipe with garlic and cream.</p>
     </div>
 </main>
+<script>
+    let recipes = []
+    fetch("https://api.github.com/repos/<user>/<repo>/contents/recipes")
+  .then(res => res.json())
+  .then(files => {
+    files.forEach(file => {
+      if (file.name.endsWith(".html")) {
+        console.log(file.name);
+        recipes.push(file.name);
+      }
+    });
+  });
+  cosole.log(recipes);
+
+</script>
 </body>
 </html>
