@@ -54,6 +54,7 @@
 <main>
     <h2>All Recipes</h2>
     <div class="recipe-card">
+        <img height="80px" style="float:right;" src="recipes/pasta.jpg">
         <h3><a href="recipes/pasta.html">Creamy Garlic Pasta</a></h3>
         <p>A simple yet delicious pasta recipe with garlic and cream.</p>
     </div>
@@ -85,6 +86,11 @@ function titleCase(str) {
     console.log(recipe);
     const div = document.createElement("div");
     div.setAttribute("class", "recipe-card");
+    const img = document.createElement("img");
+    img.setAttribute("src", "recipes/"+recipe.split(".")[0]+".jpg");
+    img.height = "80px";
+    img.style.float = "right";
+    div.appendChild(img);
     const h3 = document.createElement("h3");
     const a = document.createElement("a");
     a.setAttribute("href", "recipes/"+recipe);
